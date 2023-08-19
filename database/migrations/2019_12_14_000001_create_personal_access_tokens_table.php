@@ -1,3 +1,4 @@
+
 <?php
 
 use Illuminate\Database\Migrations\Migration;
@@ -14,9 +15,9 @@ return new class extends Migration
         Schema::create('personal_access_tokens', function (Blueprint $table) {
             $table->id();
             $table->morphs('tokenable');
-            $table->string('name');
-            $table->string('token', 64)->unique();
-            $table->text('abilities')->nullable();
+            $table->string('name', 191); // Defina um tamanho máximo de 191 caracteres para compatibilidade com MySQL
+            $table->string('token',191)->unique(); // Use o tipo "text" para evitar problemas de tamanho de chave exclusiva
+            $table->string('abilities',191)->nullable();
             $table->timestamp('last_used_at')->nullable();
             $table->timestamp('expires_at')->nullable();
             $table->timestamps();
@@ -31,3 +32,4 @@ return new class extends Migration
         Schema::dropIfExists('personal_access_tokens');
     }
 };
+
